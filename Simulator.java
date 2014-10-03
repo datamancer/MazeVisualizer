@@ -3,11 +3,24 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
+import javax.swing.*
+;
 
 public class Simulator 
 {
-	public static ArrayList<Long> maze = new ArrayList();
+	public static ArrayList<Character> maze = new ArrayList();
+	public static ArrayList<JLabel> mazeImg = new ArrayList();
 	public static int size;
 	
 	public static void main(String[] args) throws IOException 
@@ -25,6 +38,7 @@ public class Simulator
 		sim.tileMatch();
 		
 		// print maze
+		sim.printMaze();
 		
 		// start stream to get mouse location information from Arduino
 		
@@ -35,9 +49,88 @@ public class Simulator
 		// TODO Auto-generated method stub
 	}
 	
-	public void tileMatch()
+	public void tileMatch() throws IOException
 	{
+		Iterator iter = maze.iterator();
 		
+		while( iter.hasNext()) 
+		{
+			int num = Character.getNumericValue((char) iter.next());
+			JLabel img = new JLabel();
+			ImageIcon icon = null;
+			
+			switch(num) 
+			{
+				case 0:
+					icon = new ImageIcon("0.png");
+					img.setIcon(icon);
+					break;
+				case 1:
+					icon = new ImageIcon("1.png");
+					img.setIcon(icon);
+					break;
+				case 2:
+					icon = new ImageIcon("2.png");
+					img.setIcon(icon);
+					break;
+				case 3:
+					icon = new ImageIcon("3.png");
+					img.setIcon(icon);
+					break;
+				case 4:
+					icon = new ImageIcon("4.png");
+					img.setIcon(icon);
+					break;
+				case 5:
+					icon = new ImageIcon("5.png");
+					img.setIcon(icon);
+					break;
+				case 6:
+					icon = new ImageIcon("6.png");
+					img.setIcon(icon);
+					break;
+				case 7:
+					icon = new ImageIcon("7.png");
+					img.setIcon(icon);
+					break;
+				case 8:
+					icon = new ImageIcon("8.png");
+					img.setIcon(icon);
+					break;
+				case 9:
+					icon = new ImageIcon("9.png");
+					img.setIcon(icon);
+					break;
+				case 10:
+					icon = new ImageIcon("A.png");
+					img.setIcon(icon);
+					break;
+				case 11:
+					icon = new ImageIcon("B.png");
+					img.setIcon(icon);
+					break;
+				case 12: 
+					icon = new ImageIcon("C.png");
+					img.setIcon(icon);
+					break;
+				case 13:
+					icon = new ImageIcon("D.png");
+					img.setIcon(icon);
+					break;
+				case 14:
+					icon = new ImageIcon("E.png");
+					img.setIcon(icon);
+					break;
+				case 15:
+					icon = new ImageIcon("F.png");
+					img.setIcon(icon);
+					break;
+				default:
+					System.out.println("Shenanigans have occurred");
+			}
+			
+			mazeImg.add(img);
+		}
 	}
 	
 	public void createMaze(File mazeFile) throws IOException
@@ -62,10 +155,52 @@ public class Simulator
 		while(fis.available() > 0)
 		{
 			current = (char) fis.read(); 
-			maze.add((long)Character.getNumericValue(current)); // hex char val to long
+			maze.add(current);
+			//maze.add((long)Character.getNumericValue(current)); // hex char val to long
 		}
 		
 		fis.close();
 	}
+	
+	public void printMaze()
+	{
 
+		JFrame frame = new JFrame("FrameDemo");
+
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		GridLayout grid = new GridLayout(size,size);
+		grid.setHgap(0);
+		grid.setVgap(0);
+		frame.setLayout(grid);
+		
+		for( int i = 12; i < mazeImg.size(); i++ )
+		{
+			frame.add(mazeImg.get(i));
+		}
+		
+		for( int i = 12 - 4; i < mazeImg.size() - 4; i++ )
+		{
+			frame.add(mazeImg.get(i));
+		}
+		
+		for( int i = 12 - 4; i < mazeImg.size() - 4; i++ )
+		{
+			frame.add(mazeImg.get(i));
+		}
+		
+		for( int i = 12 - 8; i < mazeImg.size() - 8; i++ )
+		{
+			frame.add(mazeImg.get(i));
+		}
+		
+		for( int i = 12 - 12; i < mazeImg.size() - 12; i++ )
+		{
+			frame.add(mazeImg.get(i));
+		}
+		
+		frame.pack();
+
+		frame.setVisible(true);
+	}
 }
