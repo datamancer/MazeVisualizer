@@ -14,13 +14,14 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
-import javax.swing.*
-;
+import javax.swing.*;
 
 public class Simulator 
 {
+
 	public static ArrayList<Character> maze = new ArrayList();
 	public static ArrayList<JLabel> mazeImg = new ArrayList();
+
 	public static int size;
 	
 	public static void main(String[] args) throws IOException 
@@ -28,13 +29,13 @@ public class Simulator
 
 		File mazeFile = new File(args[0]);
 		size = Integer.parseInt(args[1]);
-		
+
 		Simulator sim = new Simulator();
 		
 		sim.createMaze(mazeFile);
-		
+
 		sim.tileMatch();
-		
+
 		sim.printMaze();
 		
 		// start stream to get mouse location information from Arduino
@@ -46,6 +47,7 @@ public class Simulator
 		// TODO Auto-generated method stub
 	}
 	
+
 	/*
 	 * Name: tileMatch()
 	 * Purpose: matches the maze number to corresponding tile
@@ -178,9 +180,8 @@ public class Simulator
 	 */
 	public void printMaze()
 	{
-
 		JFrame frame = new JFrame("FrameDemo");
-
+	
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
 		frame.setLayout( new GridLayout(size,size) );
@@ -211,7 +212,7 @@ public class Simulator
 		}
 		
 		frame.pack();
-
+	
 		frame.setVisible(true);
 	}
 }
