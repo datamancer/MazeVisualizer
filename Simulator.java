@@ -31,13 +31,10 @@ public class Simulator
 		
 		Simulator sim = new Simulator();
 		
-		// create maze
 		sim.createMaze(mazeFile);
 		
-		// match maze items to tiles
 		sim.tileMatch();
 		
-		// print maze
 		sim.printMaze();
 		
 		// start stream to get mouse location information from Arduino
@@ -49,6 +46,13 @@ public class Simulator
 		// TODO Auto-generated method stub
 	}
 	
+	/*
+	 * Name: tileMatch()
+	 * Purpose: matches the maze number to corresponding tile
+	 * Parameters: none
+	 * Returns: void
+	 * Throws: IOException
+	 */
 	public void tileMatch() throws IOException
 	{
 		Iterator iter = maze.iterator();
@@ -133,11 +137,16 @@ public class Simulator
 		}
 	}
 	
+	/*
+	 * Name: createMaze
+	 * Purpose: stores maze values from given file
+	 * Parameters: File mazeFile
+	 * Returns: void
+	 */
 	public void createMaze(File mazeFile) throws IOException
 	{
 		char current;
 		
-		// check file existence
 		if (!mazeFile.exists())
 		{
 			System.out.println("File " + mazeFile + " does not exist.");
@@ -156,23 +165,25 @@ public class Simulator
 		{
 			current = (char) fis.read(); 
 			maze.add(current);
-			//maze.add((long)Character.getNumericValue(current)); // hex char val to long
 		}
 		
 		fis.close();
 	}
 	
+	/*
+	 * Name: printMaze()
+	 * Purpose: prints out the maze
+	 * Parameters: none
+	 * Returns: void
+	 */
 	public void printMaze()
 	{
 
 		JFrame frame = new JFrame("FrameDemo");
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		GridLayout grid = new GridLayout(size,size);
-		grid.setHgap(0);
-		grid.setVgap(0);
-		frame.setLayout(grid);
+	
+		frame.setLayout( new GridLayout(size,size) );
 		
 		for( int i = 12; i < mazeImg.size(); i++ )
 		{
